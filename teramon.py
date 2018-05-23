@@ -14,7 +14,7 @@ while True:
     # GPIO pin podle dokumentace Raspberry
     humidity, temperature = Adafruit_DHT.read_retry(11, 18)
     lcd.lcd_clear()
-    lcd.lcd_display_string('Temp: {0:01f} C'.format(temperature), 1)
-    lcd.lcd_display_string('Humidity: {1:0.1f} %'.format(humidity), 2)
+    lcd.lcd_display_string('Temp: {0:0.1f} C'.format(temperature), 1)
+    lcd.lcd_display_string('Humidity: {0:0.1f} %'.format(humidity), 2)
 
     print 'Temp: {0:0.1f} C  Humidity: {1:0.1f} %'.format(temperature, humidity)
