@@ -2,6 +2,11 @@
 
 import sys
 import Adafruit_DHT
+import RPi_I2C_driver
+from time import *
+
+lcd = RPi_I2C_driver.lcd()
+lcd.lcd_display_string("Hello world!", 1)
 
 while True:
 
