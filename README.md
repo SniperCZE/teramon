@@ -16,7 +16,7 @@ Software pro hlidani teploty a vlhkosti v terariu. Vytvoreno pro Raspberry PI, j
                   07 -+ +- 08
                   09 -+ +- 10
                   11 -+ +- 12
-                  13 -+ +- 14
+                  13 -+ +- 14 GND čidla
                   15 -+ +- 16 GPIO Relé světlo
                   17 -+ +- 18 GPIO Relé teplo
                   19 -+ +- 20 GND relé
@@ -34,4 +34,4 @@ DATA čidlo prales 35 -+ +- 36
 
 ## Poznámky
 
-* V souboru `RPi_I2C_driver.py` je potřeba nastavit I2C adresu vašeho LCD (zjistíte přes utilitku i2cdetect), k tomu slouží řádek 54. V mém případě je LCD na adrese 0x38
+* V souboru `RPi_I2C_driver.py` je potřeba nastavit I2C adresu vašeho LCD (zjistíte přes utilitku i2cdetect), k tomu slouží řádek 54. V mém případě je LCD na adrese 0x38.
