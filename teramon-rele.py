@@ -3,18 +3,23 @@
 import sys
 import teramon
 import time
-from gpiozero import OutputDevice
+import RPi.GPIO as GPIO
 
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BCM)
 tmon = teramon.teramon()
 
 PIN_RELE_SVETLO = 23
 PIN_RELE_TEPLO = 24
 
+GPIO.setup(PIN_RELE_SVETLO, GPIO.OUT)
+GPIO.setup(PIN_RELE_TEPLO, GPIO.OUT)
+
 dataSklo = tmon.mereni(tmon.PIN_CIDLO_SKLO)
 dataLampa = tmon.mereni(tmon.PIN_CIDLO_LAMPA)
 dataDzungle = tmon.mereni(tmon.PIN_CIDLO_DZUNGLE)
 
-aktualniHodina = time.strftime('%H')
+aktualniHodina = (int)(time.strftime('%H'))
 jeDen = (aktualniHodina >= 8) and (aktualniHodina <= 21)
 
 # regulace teplozarivky
@@ -29,15 +34,12 @@ if ((dataSklo['temp'] < 18) or (dataLampa['temp'] < 18) or (dataDzungle['temp'] 
 # regulace svetla
 stavSvetlo = jeDen
 
-releSvetlo = OutputDevice(PIN_RELE_SVETLO)
-releTeplo = OutputDevice(PIN_RELE_TEPLO)
-
 if (stavSvetlo):
-    releSvetlo.on()
+    GPIO.output(PIN_RELE_SVETLO, GPIO.HIGH)
 else:
-    releSvetlo.off()
+    GPIO.output(PIN_RELE_SVETLO, GPIO.LOW)
 
 if (stavTeplo):
-    releTeplo.on()
+    GPIO.output(PIN_RELE_TEPLO, GPIO.HIGH)
 else:
-    releTeplo.off()
+    GPIO.output(PIN_RELE_TEPLO, GPIO.LOW)
