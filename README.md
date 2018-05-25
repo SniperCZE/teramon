@@ -24,10 +24,10 @@ Software pro hlidani teploty a vlhkosti v terariu. Vytvoreno pro Raspberry PI, j
                   23 -+ +- 24
                   25 -+ +- 26
                   27 -+ +- 28
-                  29 -+ +- 30
-  DATA čidlo sklo 31 -+ +- 32
- DATA čidlo lampa 33 -+ +- 34
-DATA čidlo prales 35 -+ +- 36
+  DATA čidlo sklo 29 -+ +- 30
+ DATA čidlo lampa 31 -+ +- 32
+DATA čidlo prales 33 -+ +- 34
+                  35 -+ +- 36
                   37 -+ +- 38
                   39 -+ +- 40
 ```
