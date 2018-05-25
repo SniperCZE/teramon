@@ -10,9 +10,9 @@ tmon = teramon.teramon()
 PIN_RELE_SVETLO = 23
 PIN_RELE_TEPLO = 24
 
-dataSklo = tmon.mereni(teramon.PIN_CIDLO_SKLO)
-dataLampa = tmon.mereni(teramon.PIN_CIDLO_LAMPA)
-dataDzungle = tmon.mereni(teramon.PIN_CIDLO_DZUNGLE)
+dataSklo = tmon.mereni(tmon.PIN_CIDLO_SKLO)
+dataLampa = tmon.mereni(tmon.PIN_CIDLO_LAMPA)
+dataDzungle = tmon.mereni(tmon.PIN_CIDLO_DZUNGLE)
 
 aktualniHodina = time.strftime('%H')
 jeDen = (aktualniHodina >= 8) and (aktualniHodina <= 21)
