@@ -19,8 +19,8 @@ CEKANI = 20
 
 tmon = teramon.teramon()
 
-vypisLcd("SKLO", tmon.mereni(teramon.PIN_CIDLO_SKLO), lcd)
+vypisLcd("SKLO", tmon.mereni(tmon.PIN_CIDLO_SKLO), lcd)
 time.sleep(CEKANI)
-vypisLcd("LAMPA", tmon.mereni(teramon.PIN_CIDLO_LAMPA), lcd)
+vypisLcd("LAMPA", tmon.mereni(tmon.PIN_CIDLO_LAMPA), lcd)
 time.sleep(CEKANI)
-vypisLcd("DZUNGLE", tmon.mereni(teramon.PIN_CIDLO_DZUNGLE), lcd)
+vypisLcd("DZUNGLE", tmon.mereni(tmon.PIN_CIDLO_DZUNGLE), lcd)
