@@ -15,9 +15,9 @@ pozice = sys.argv[1]
 
 if pozice == "SKLO":
     data = tmon.mereni(teramon.PIN_CIDLO_SKLO)
-else if pozice == "LAMPA":
+elif pozice == "LAMPA":
     data = tmon.mereni(teramon.PIN_CIDLO_LAMPA)
-else if pozice == "DZUNGLE":
+elif pozice == "DZUNGLE":
     data = tmon.mereni(teramon.PIN_CIDLO_DZUNGLE)
 else:
     data = { 'hum' : 0, 'temp' : 0 }
