@@ -10,7 +10,7 @@ def vypisLcd(pozice, data, lcd):
     Vypise informace o namerene teplote a vlhkosti na LCD
     """
     lcd.lcd_clear()
-    hodina = (int)time.strftime('%H')
+    hodina = (int)(time.strftime('%H'))
     if (hodina <= 8) and (hodina >= 22):
         lcd.backlight(0)
     else:
