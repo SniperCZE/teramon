@@ -3,7 +3,7 @@
 import sys
 import teramon
 
-if len(sys.argv) != 2:
+if len(sys.argv) != 3:
     print("Pouziti: teramon-zabbix.py POZICE VELICINA")
     print("POZICE: SKLO, LAMPA, DZUNGLE")
     print("VELICINA: hum, temp")
