@@ -14,11 +14,11 @@ tmon = teramon.teramon()
 pozice = sys.argv[1]
 
 if pozice == "SKLO":
-    data = tmon.mereni(teramon.PIN_CIDLO_SKLO)
+    data = tmon.mereni(tmon.PIN_CIDLO_SKLO)
 elif pozice == "LAMPA":
-    data = tmon.mereni(teramon.PIN_CIDLO_LAMPA)
+    data = tmon.mereni(tmon.PIN_CIDLO_LAMPA)
 elif pozice == "DZUNGLE":
-    data = tmon.mereni(teramon.PIN_CIDLO_DZUNGLE)
+    data = tmon.mereni(tmon.PIN_CIDLO_DZUNGLE)
 else:
     data = { 'hum' : 0, 'temp' : 0 }
 
