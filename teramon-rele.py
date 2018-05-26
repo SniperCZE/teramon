@@ -53,9 +53,7 @@ if jeDen:
     if (dataSklo['temp'] > LIMIT_SKLO_HIGH_DEN) or (dataLampa['temp'] > LIMIT_LAMPA_HIGH_DEN) or (dataDzungle['temp'] > LIMIT_DZUNGLE_HIGH_DEN):
         stavTeplo = False
 
-    if ((dataSklo['temp'] <= LIMIT_SKLO_HIGH_DEN) and (dataSklo['temp'] >= LIMIT_SKLO_LOW_DEN)) and 
-       ((dataLampa['temp'] <= LIMIT_LAMPA_HIGH_DEN) and (dataLampa['temp'] >= LIMIT_LAMPA_HIGH_DEN)) and 
-       ((dataDzungle['temp'] <= LIMIT_DZUNGLE_HIGH_DEN) and (dataDzungle['temp'] >= LIMIT_DZUNGLE_HIGH_DEN)):
+    if ((dataSklo['temp'] <= LIMIT_SKLO_HIGH_DEN) and (dataSklo['temp'] >= LIMIT_SKLO_LOW_DEN)) and ((dataLampa['temp'] <= LIMIT_LAMPA_HIGH_DEN) and (dataLampa['temp'] >= LIMIT_LAMPA_HIGH_DEN)) and ((dataDzungle['temp'] <= LIMIT_DZUNGLE_HIGH_DEN) and (dataDzungle['temp'] >= LIMIT_DZUNGLE_HIGH_DEN)):
         zmenitTeplo = False
 else:
     if (dataSklo['temp'] < LIMIT_SKLO_LOW_NOC) or (dataLampa['temp'] < LIMIT_LAMPA_LOW_NOC) or (dataDzungle['temp'] < LIMIT_DZUNGLE_LOW_NOC):
