@@ -65,8 +65,8 @@ else:
         stavTeplo = False
 
     if ((dataSklo['temp'] <= LIMIT_SKLO_HIGH_NOC) and (dataSklo['temp'] >= LIMIT_SKLO_LOW_NOC)) and 
-       ((dataLampa['temp'] <= LIMIT_LAMPA_HIGH_NOC) and (dataLampa['temp'] >= LIMIT_LAMPA_HIGH_NOC)) and 
-       ((dataDzungle['temp'] <= LIMIT_DZUNGLE_HIGH_NOC) and (dataDzungle['temp'] >= LIMIT_DZUNGLE_HIGH_NOC)):
+            ((dataLampa['temp'] <= LIMIT_LAMPA_HIGH_NOC) and (dataLampa['temp'] >= LIMIT_LAMPA_HIGH_NOC)) and 
+            ((dataDzungle['temp'] <= LIMIT_DZUNGLE_HIGH_NOC) and (dataDzungle['temp'] >= LIMIT_DZUNGLE_HIGH_NOC)):
         zmenitTeplo = False
     
 
