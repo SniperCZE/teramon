@@ -74,7 +74,7 @@ if (stavSvetlo):
 else:
     GPIO.output(PIN_RELE_SVETLO, GPIO.LOW)
 
-if zmeniTeplo:
+if zmenitTeplo:
     if (stavTeplo):
         GPIO.output(PIN_RELE_TEPLO, GPIO.HIGH)
     else:
