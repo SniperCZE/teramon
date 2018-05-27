@@ -20,7 +20,7 @@ def vypisLcd(pozice, data, lcd):
     lcd.lcd_display_string_pos("{0:0.0f}:{1:0.0f}".format(hodina, minuta), 1, 11)
     lcd.lcd_display_string('T: {0:0.0f}'.format(data['temp']), 2)
     lcd.lcd_display_string_pos(chr(223), 2, 5)
-    lcd.lcd_display_string_pos('C RH: {0:0.0f}%'.format(data['hum']), 2, 7)
+    lcd.lcd_display_string_pos('C  RH: {0:0.0f}%'.format(data['hum']), 2, 6)
 
 lcd = RPi_I2C_driver.lcd()
 
