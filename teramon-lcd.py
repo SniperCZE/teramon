@@ -17,12 +17,12 @@ def vypisLcd(pozice, data, lcd):
     else:
         lcd.backlight(0)
     lcd.lcd_display_string(pozice, 1)
-    lcd.lcd_display_string_pos("{0:0.0f}:{1:0.0f}".format(hodina, minuta), 1, 10)
+    lcd.lcd_display_string_pos("{0:0.0f}:{1:0.0f}".format(hodina, minuta), 1, 11)
     lcd.lcd_display_string('T: {0:0.0f} C RH: {1:0.0f}%'.format(data['temp'], data['hum']), 2)
 
 lcd = RPi_I2C_driver.lcd()
 
-CEKANI = 20
+CEKANI = 30
 
 tmon = teramon.teramon()
 
