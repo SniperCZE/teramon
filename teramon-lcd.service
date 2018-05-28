@@ -7,6 +7,7 @@ PrivateTmp=true
 Type=forking
 PIDFile=/var/run/teramon/teramon-lcd.pid
 ExecStart=python /usr/local/bin/teramon-lcd.py
+Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target
