@@ -43,7 +43,7 @@ zmenitTeplo = True
 
 # Schema topeni:
 # * cidlo pod lampou hlasi teplotu pod LOW limit pro danou dobu - topime bez ohledu na zbytek cidel
-# * alespon jedno cidlo hlasi teplotu pod LOW limit pro danou dobu A ZAROVEŇ
+# * alespon jedno cidlo hlasi teplotu pod LOW limit pro danou dobu A ZAROVEN
 # * zadne cidlo nehlasi teplotu nad HIGH limit pro danou dobu - topime
 # * stav topeni nezmenime, pokud vsechny cidla maji teplotu v rozmezi LOW - HIGH
 
