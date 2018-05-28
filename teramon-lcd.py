@@ -4,6 +4,7 @@ import sys
 import RPi_I2C_driver
 import time
 import teramon
+import daemon
 
 def vypisLcd(pozice, data, lcd):
     """
@@ -22,14 +23,18 @@ def vypisLcd(pozice, data, lcd):
     lcd.lcd_display_string_pos(chr(223), 2, 5)
     lcd.lcd_display_string_pos('C  RH: {0:0.0f}%'.format(data['hum']), 2, 6)
 
-lcd = RPi_I2C_driver.lcd()
+def ovladaniLcd(tmon, lcd, cekani=30):
+    vypisLcd("SKLO", tmon.mereni(tmon.PIN_CIDLO_SKLO), lcd)
+    time.sleep(cekani)
+    vypisLcd("LAMPA", tmon.mereni(tmon.PIN_CIDLO_LAMPA), lcd)
+    time.sleep(cekani)
+    vypisLcd("DZUNGLE", tmon.mereni(tmon.PIN_CIDLO_DZUNGLE), lcd)
+    time.sleep(cekani)
 
 CEKANI = 30
 
+lcd = RPi_I2C_driver.lcd()
 tmon = teramon.teramon()
 
-vypisLcd("SKLO", tmon.mereni(tmon.PIN_CIDLO_SKLO), lcd)
-time.sleep(CEKANI)
-vypisLcd("LAMPA", tmon.mereni(tmon.PIN_CIDLO_LAMPA), lcd)
-time.sleep(CEKANI)
-vypisLcd("DZUNGLE", tmon.mereni(tmon.PIN_CIDLO_DZUNGLE), lcd)
+with daemon.DaemonContext():
+    ovladaniLcd(tmon, lcd, CEKANI)
