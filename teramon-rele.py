@@ -41,29 +41,38 @@ jeDen = (aktualniHodina >= 8) and (aktualniHodina <= 21)
 stavTeplo = False
 zmenitTeplo = True
 
-# Topime pokud:
-# * alespon jedno cidlo hlasi teplotu pod LOW limit pro danou dobu
-# * zadne cidlo nehlasi teplotu nad HIGH limit pro danou dobu
+# Schema topeni:
+# * cidlo pod lampou hlasi teplotu pod LOW limit pro danou dobu - topime bez ohledu na zbytek cidel
+# * alespon jedno cidlo hlasi teplotu pod LOW limit pro danou dobu A ZAROVEŇ
+# * zadne cidlo nehlasi teplotu nad HIGH limit pro danou dobu - topime
 # * stav topeni nezmenime, pokud vsechny cidla maji teplotu v rozmezi LOW - HIGH
 
 if jeDen:
-    if (dataSklo['temp'] < LIMIT_SKLO_LOW_DEN) or (dataLampa['temp'] < LIMIT_LAMPA_LOW_DEN) or (dataDzungle['temp'] < LIMIT_DZUNGLE_LOW_DEN):
+    if dataLampa['temp'] < LIMIT_LAMPA_LOW_DEN:
         stavTeplo = True
+        zmenTeplo = True
+    else :
+        if (dataSklo['temp'] < LIMIT_SKLO_LOW_DEN) or () or (dataDzungle['temp'] < LIMIT_DZUNGLE_LOW_DEN):
+            stavTeplo = True
 
-    if (dataSklo['temp'] > LIMIT_SKLO_HIGH_DEN) or (dataLampa['temp'] > LIMIT_LAMPA_HIGH_DEN) or (dataDzungle['temp'] > LIMIT_DZUNGLE_HIGH_DEN):
-        stavTeplo = False
+        if (dataSklo['temp'] > LIMIT_SKLO_HIGH_DEN) or (dataLampa['temp'] > LIMIT_LAMPA_HIGH_DEN) or (dataDzungle['temp'] > LIMIT_DZUNGLE_HIGH_DEN):
+            stavTeplo = False
 
-    if ((dataSklo['temp'] <= LIMIT_SKLO_HIGH_DEN) and (dataSklo['temp'] >= LIMIT_SKLO_LOW_DEN)) and ((dataLampa['temp'] <= LIMIT_LAMPA_HIGH_DEN) and (dataLampa['temp'] >= LIMIT_LAMPA_HIGH_DEN)) and ((dataDzungle['temp'] <= LIMIT_DZUNGLE_HIGH_DEN) and (dataDzungle['temp'] >= LIMIT_DZUNGLE_HIGH_DEN)):
-        zmenitTeplo = False
+        if ((dataSklo['temp'] <= LIMIT_SKLO_HIGH_DEN) and (dataSklo['temp'] >= LIMIT_SKLO_LOW_DEN)) and ((dataLampa['temp'] <= LIMIT_LAMPA_HIGH_DEN) and (dataLampa['temp'] >= LIMIT_LAMPA_HIGH_DEN)) and ((dataDzungle['temp'] <= LIMIT_DZUNGLE_HIGH_DEN) and (dataDzungle['temp'] >= LIMIT_DZUNGLE_HIGH_DEN)):
+            zmenitTeplo = False
 else:
-    if (dataSklo['temp'] < LIMIT_SKLO_LOW_NOC) or (dataLampa['temp'] < LIMIT_LAMPA_LOW_NOC) or (dataDzungle['temp'] < LIMIT_DZUNGLE_LOW_NOC):
+    if dataLampa['temp'] < LIMIT_LAMPA_LOW_NOC:
         stavTeplo = True
+        zmenTeplo = True
+    else:
+        if (dataSklo['temp'] < LIMIT_SKLO_LOW_NOC) or () or (dataDzungle['temp'] < LIMIT_DZUNGLE_LOW_NOC):
+            stavTeplo = True
 
-    if (dataSklo['temp'] > LIMIT_SKLO_HIGH_NOC) or (dataLampa['temp'] > LIMIT_LAMPA_HIGH_NOC) or (dataDzungle['temp'] > LIMIT_DZUNGLE_HIGH_NOC):
-        stavTeplo = False
+        if (dataSklo['temp'] > LIMIT_SKLO_HIGH_NOC) or (dataLampa['temp'] > LIMIT_LAMPA_HIGH_NOC) or (dataDzungle['temp'] > LIMIT_DZUNGLE_HIGH_NOC):
+            stavTeplo = False
 
-    if ((dataSklo['temp'] <= LIMIT_SKLO_HIGH_NOC) and (dataSklo['temp'] >= LIMIT_SKLO_LOW_NOC)) and ((dataLampa['temp'] <= LIMIT_LAMPA_HIGH_NOC) and (dataLampa['temp'] >= LIMIT_LAMPA_HIGH_NOC)) and ((dataDzungle['temp'] <= LIMIT_DZUNGLE_HIGH_NOC) and (dataDzungle['temp'] >= LIMIT_DZUNGLE_HIGH_NOC)):
-        zmenitTeplo = False
+        if ((dataSklo['temp'] <= LIMIT_SKLO_HIGH_NOC) and (dataSklo['temp'] >= LIMIT_SKLO_LOW_NOC)) and ((dataLampa['temp'] <= LIMIT_LAMPA_HIGH_NOC) and (dataLampa['temp'] >= LIMIT_LAMPA_HIGH_NOC)) and ((dataDzungle['temp'] <= LIMIT_DZUNGLE_HIGH_NOC) and (dataDzungle['temp'] >= LIMIT_DZUNGLE_HIGH_NOC)):
+            zmenitTeplo = False
     
 
 # regulace svetla
