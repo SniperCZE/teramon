@@ -6,7 +6,7 @@ After=network.target
 PrivateTmp=true
 Type=forking
 PIDFile=/var/run/teramon/teramon-lcd.pid
-ExecStart=python /usr/local/bin/teramon-lcd.py
+ExecStart=/usr/bin/python /usr/local/bin/teramon-lcd.py
 Restart=on-failure
 
 [Install]
