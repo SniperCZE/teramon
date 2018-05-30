@@ -15,3 +15,4 @@ Software pro hlidani teploty a vlhkosti v terariu. Vytvoreno pro Raspberry PI, j
 * teramon-lcd.py - zobrazuje namerene hodnoty na LCD display pres I2C. Bezi jako daemon pres systemd
 * teramon-rele.py - ovladani osvetleni a topeni na zaklade casu a namerene teploty
 * teramon-zabbix.py - integrace teramonu do monitorovaciho systemu zabbix
+* teramon.json - konfigurace Teramonu

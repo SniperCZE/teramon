@@ -1,0 +1,49 @@
+{
+    "lcd_adresa" : 38,
+    "lcd_cekani" : 30,
+    "senzory" : {
+        "SKLO" : { 
+            "gpio" : 5,
+            "limity_teploty" : {
+                "den" : {
+                    "low" : 22,
+                    "high" : 25
+                },
+                "noc" : {
+                    "low" : 18,
+                    "high" : 22
+                }
+            }
+        },
+        "DZUNGLE" : { 
+            "gpio" : 13,
+            "limity_teploty" : {
+                "den" : {
+                    "low" : 22,
+                    "high" : 25
+                },
+                "noc" : {
+                    "low" : 18,
+                    "high" : 22
+                }
+            }
+        },
+        "LAMPA" : { 
+            "gpio" : 6,
+            "limity_teploty" : {
+                "den" : {
+                    "low" : 33,
+                    "high" : 35
+                },
+                "noc" : {
+                    "low" : 18,
+                    "high" : 22
+                }
+            }
+        }
+    },
+    "den_zacatek" : 8,
+    "den_konec" : 22,
+    "gpio_svetlo" : 23,
+    "gpio_teplo" : 24
+}
