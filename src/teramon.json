@@ -45,5 +45,6 @@
     "den_zacatek" : 8,
     "den_konec" : 22,
     "gpio_svetlo" : 23,
-    "gpio_teplo" : 24
+    "gpio_teplo" : 24,
+    "dht_model" : 11
 }

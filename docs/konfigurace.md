@@ -52,7 +52,8 @@ Teramon se konfiguruje přes soubor `teramon.json`. V něm je možno nastavit ad
     "den_zacatek" : 8,
     "den_konec" : 22,
     "gpio_svetlo" : 23,
-    "gpio_teplo" : 24
+    "gpio_teplo" : 24,
+    "dht_model" : 11
 }
 ```
 
@@ -71,3 +72,4 @@ Teramon se konfiguruje přes soubor `teramon.json`. V něm je možno nastavit ad
 * *den_konec* - poslední hodina denního režimu (konec dne)
 * *gpio_svetlo* - GPIO port, na kterém se nachází spínání relé pro ovládání světla
 * *gpio_teplo* - GPIO port, na kterém se nachází spínání relé pro ovládání topení
+* *dht_model* - model DHT čidla pro teplotu a vlhkost. Možné varianty jsou `11` a `22`
