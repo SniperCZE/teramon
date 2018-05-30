@@ -1,21 +1,17 @@
 #!/usr/bin/python
 
 import Adafruit_DHT
+import json
 
 class teramon:
 
-    PIN_CIDLO_SKLO = 5
-    PIN_CIDLO_LAMPA = 6
-    PIN_CIDLO_DZUNGLE = 13
-    
+    dht_model = 11
+
     def __init__(self):
-        pass
+        json_data = open("./teramon.json").read()
+        konfigurace = json.loads(json_data)
+        self.dht_model = konfigurace['dht_model']
 
     def mereni(self, gpio):
-        """
-        read_retry(model, gpio pin)
-        model: 11, 22
-        GPIO pin podle dokumentace Raspberry
-        """
-        humidity, temperature = Adafruit_DHT.read_retry(11, gpio)
+        humidity, temperature = Adafruit_DHT.read_retry(self.dht_model, gpio)
         return { 'hum': humidity, 'temp': temperature }
