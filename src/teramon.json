@@ -12,7 +12,8 @@
                 "noc" : {
                     "low" : 18,
                     "high" : 22
-                }
+                },
+                "primarni" : false
             }
         },
         "DZUNGLE" : { 
@@ -25,7 +26,8 @@
                 "noc" : {
                     "low" : 18,
                     "high" : 22
-                }
+                },
+                "primarni" : false
             }
         },
         "LAMPA" : { 
@@ -38,7 +40,8 @@
                 "noc" : {
                     "low" : 18,
                     "high" : 22
-                }
+                },
+                "primarni" : true
             }
         }
     },

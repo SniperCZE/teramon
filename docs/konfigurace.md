@@ -19,7 +19,8 @@ Teramon se konfiguruje přes soubor `teramon.json`. V něm je možno nastavit ad
                 "noc" : {
                     "low" : 18,
                     "high" : 22
-                }
+                },
+                "primarni" : false
             }
         },
         "DZUNGLE" : { 
@@ -32,7 +33,8 @@ Teramon se konfiguruje přes soubor `teramon.json`. V něm je možno nastavit ad
                 "noc" : {
                     "low" : 18,
                     "high" : 22
-                }
+                },
+                "primarni" : false
             }
         },
         "LAMPA" : { 
@@ -45,7 +47,8 @@ Teramon se konfiguruje přes soubor `teramon.json`. V něm je možno nastavit ad
                 "noc" : {
                     "low" : 18,
                     "high" : 22
-                }
+                },
+                "primarni" : true
             }
         }
     },
@@ -68,6 +71,7 @@ Teramon se konfiguruje přes soubor `teramon.json`. V něm je možno nastavit ad
         * *low* - teplota, při které se má topení zapnout
         * *high* - teplota, při které se má topení vypnout
       * *noc* - objekt pro hodnoty během noci. Parametry jsou shodné jako v denním objektu
+      * *primarni* - boolean příznak, zda je čidlo primární. Primární čidla ovlivňují spínání topení nezávysle na ostatních - pokud je teplota na primárním čidle (libovolném) menší nebo rovna low hodnotě pro danou část dne, topíme bez ohledu na zbytek čidel.
 * *den_zacatek* - první hodina denního režimu (začátek dne)
 * *den_konec* - poslední hodina denního režimu (konec dne)
 * *gpio_svetlo* - GPIO port, na kterém se nachází spínání relé pro ovládání světla
