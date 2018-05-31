@@ -9,37 +9,23 @@ GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
 tmon = teramon.teramon()
 
-PIN_RELE_SVETLO = 23
-PIN_RELE_TEPLO = 24
+json_data = open("./teramon.json").read()
+konfigurace = json.loads(json_data)
 
-LIMIT_SKLO_LOW_DEN = 22
-LIMIT_SKLO_HIGH_DEN = 25
-LIMIT_DZUNGLE_LOW_DEN = 22
-LIMIT_DZUNGLE_HIGH_DEN = 25
-LIMIT_LAMPA_LOW_DEN = 33
-LIMIT_LAMPA_HIGH_DEN = 37
+GPIO.setup(konfigurace['gpio_teplo'], GPIO.OUT)
+GPIO.setup(konfigurace['gpio_svetlo'], GPIO.OUT)
+data = {}
 
-LIMIT_SKLO_LOW_NOC = 18
-LIMIT_SKLO_HIGH_NOC = 22
-LIMIT_DZUNGLE_LOW_NOC = 18
-LIMIT_DZUNGLE_HIGH_NOC = 22
-LIMIT_LAMPA_LOW_NOC = 18
-LIMIT_LAMPA_HIGH_NOC = 22
-
-
-GPIO.setup(PIN_RELE_SVETLO, GPIO.OUT)
-GPIO.setup(PIN_RELE_TEPLO, GPIO.OUT)
-
-dataSklo = tmon.mereni(tmon.PIN_CIDLO_SKLO)
-dataLampa = tmon.mereni(tmon.PIN_CIDLO_LAMPA)
-dataDzungle = tmon.mereni(tmon.PIN_CIDLO_DZUNGLE)
+for cidlo, nastaveni in konfigurace['senzory'].iteritems():
+    data[cidlo] = tmon.mereni(nastaveni['gpio'])
 
 aktualniHodina = (int)(time.strftime('%H'))
-jeDen = (aktualniHodina >= 8) and (aktualniHodina <= 21)
+jeDen = (aktualniHodina >= konfigurace['den_zacatek']) and (aktualniHodina <= konfigurace['den_konec'])
 
 # regulace teplozarivky
 stavTeplo = False
 zmenitTeplo = True
+existujePrimarniCidlo = False
 
 # Schema topeni:
 # * cidlo pod lampou hlasi teplotu pod LOW limit pro danou dobu - topime bez ohledu na zbytek cidel
@@ -47,31 +33,63 @@ zmenitTeplo = True
 # * zadne cidlo nehlasi teplotu nad HIGH limit pro danou dobu - topime
 # * stav topeni nezmenime, pokud vsechny cidla maji teplotu v rozmezi LOW - HIGH
 
+for cidlo, nastaveni in konfigurace['senzory'].iteritems():
+    if nastaveni['primarni'] == True:
+        existujePrimarniCidlo = True
+
 if jeDen:
-    if dataLampa['temp'] < LIMIT_LAMPA_LOW_DEN:
-        stavTeplo = True
-        zmenTeplo = True
+
+    if existujePrimarniCidlo:
+        # nejprve projdeme primarni cidla. Pokud nejake namerilo teplotu <= LOW, topíme.
+        for cidlo, nastaveni in konfigurace['senzory'].iteritems():
+            if nastaveni['primarni'] == True:
+                if data[cidlo]['temp'] <= nastaveni['limity_teploty']['den']['low']:
+                    stavTeplo = True
+                    zmenTeplo = True
     else :
-        if (dataSklo['temp'] < LIMIT_SKLO_LOW_DEN) or () or (dataDzungle['temp'] < LIMIT_DZUNGLE_LOW_DEN):
-            stavTeplo = True
+        for cidlo, nastaveni in konfigurace['senzory'].iteritems():
+            if data[cidlo]['temp'] <= nastaveni['limity_teploty']['den']['low']:
+                stavTeplo = True
 
-        if (dataSklo['temp'] > LIMIT_SKLO_HIGH_DEN) or (dataLampa['temp'] > LIMIT_LAMPA_HIGH_DEN) or (dataDzungle['temp'] > LIMIT_DZUNGLE_HIGH_DEN):
-            stavTeplo = False
+        for cidlo, nastaveni in konfigurace['senzory'].iteritems():
+            if data[cidlo]['temp'] >= nastaveni['limity_teploty']['den']['high']:
+                stavTeplo = False
 
-        if ((dataSklo['temp'] <= LIMIT_SKLO_HIGH_DEN) and (dataSklo['temp'] >= LIMIT_SKLO_LOW_DEN)) and ((dataLampa['temp'] <= LIMIT_LAMPA_HIGH_DEN) and (dataLampa['temp'] >= LIMIT_LAMPA_HIGH_DEN)) and ((dataDzungle['temp'] <= LIMIT_DZUNGLE_HIGH_DEN) and (dataDzungle['temp'] >= LIMIT_DZUNGLE_HIGH_DEN)):
+        zatimTrue = True
+        for cidlo, nastaveni in konfigurace['senzory'].iteritems():
+            if (data[cidlo]['temp'] <= nastaveni['limit_teploty']['den']['high']) and (data[cidlo]['temp'] >= nastaveni['limit_teploty']['den']['low']) and zatimTrue:
+                zatimTrue = True
+            else:
+                zatimTrue = False
+
+        if zatimTrue:
             zmenitTeplo = False
 else:
-    if dataLampa['temp'] < LIMIT_LAMPA_LOW_NOC:
-        stavTeplo = True
-        zmenTeplo = True
-    else:
-        if (dataSklo['temp'] < LIMIT_SKLO_LOW_NOC) or () or (dataDzungle['temp'] < LIMIT_DZUNGLE_LOW_NOC):
-            stavTeplo = True
 
-        if (dataSklo['temp'] > LIMIT_SKLO_HIGH_NOC) or (dataLampa['temp'] > LIMIT_LAMPA_HIGH_NOC) or (dataDzungle['temp'] > LIMIT_DZUNGLE_HIGH_NOC):
-            stavTeplo = False
+    if existujePrimarniCidlo:
+        # nejprve projdeme primarni cidla. Pokud nejake namerilo teplotu <= LOW, topíme.
+        for cidlo, nastaveni in konfigurace['senzory'].iteritems():
+            if nastaveni['primarni'] == True:
+                if data[cidlo]['temp'] <= nastaveni['limity_teploty']['noc']['low']:
+                    stavTeplo = True
+                    zmenTeplo = True
+    else :
+        for cidlo, nastaveni in konfigurace['senzory'].iteritems():
+            if data[cidlo]['temp'] <= nastaveni['limity_teploty']['noc']['low']:
+                stavTeplo = True
 
-        if ((dataSklo['temp'] <= LIMIT_SKLO_HIGH_NOC) and (dataSklo['temp'] >= LIMIT_SKLO_LOW_NOC)) and ((dataLampa['temp'] <= LIMIT_LAMPA_HIGH_NOC) and (dataLampa['temp'] >= LIMIT_LAMPA_HIGH_NOC)) and ((dataDzungle['temp'] <= LIMIT_DZUNGLE_HIGH_NOC) and (dataDzungle['temp'] >= LIMIT_DZUNGLE_HIGH_NOC)):
+        for cidlo, nastaveni in konfigurace['senzory'].iteritems():
+            if data[cidlo]['temp'] >= nastaveni['limity_teploty']['noc']['high']:
+                stavTeplo = False
+
+        zatimTrue = True
+        for cidlo, nastaveni in konfigurace['senzory'].iteritems():
+            if (data[cidlo]['temp'] <= nastaveni['limit_teploty']['noc']['high']) and (data[cidlo]['temp'] >= nastaveni['limit_teploty']['noc']['low']) and zatimTrue:
+                zatimTrue = True
+            else:
+                zatimTrue = False
+
+        if zatimTrue:
             zmenitTeplo = False
     
 
@@ -79,12 +97,12 @@ else:
 stavSvetlo = jeDen
 
 if (stavSvetlo):
-    GPIO.output(PIN_RELE_SVETLO, GPIO.HIGH)
+    GPIO.output(konfigurace['gpio_svetlo'], GPIO.HIGH)
 else:
-    GPIO.output(PIN_RELE_SVETLO, GPIO.LOW)
+    GPIO.output(konfigurace['gpio_svetlo'], GPIO.LOW)
 
 if zmenitTeplo:
     if (stavTeplo):
-        GPIO.output(PIN_RELE_TEPLO, GPIO.HIGH)
+        GPIO.output(konfigurace['gpio_teplo'], GPIO.HIGH)
     else:
-        GPIO.output(PIN_RELE_TEPLO, GPIO.LOW)
+        GPIO.output(konfigurace['gpio_teplo'], GPIO.LOW)
