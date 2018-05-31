@@ -18,10 +18,11 @@ if len(sys.argv) != 3:
 tmon = teramon.teramon()
 
 pozice = sys.argv[1]
+velicina = sys.argv[2]
 
 if pozice in konfigurace['senzory'].keys():
     data = tmon.mereni(konfigurace['senzory'][pozice]['gpio'])
 else:
     data = { 'hum' : 0, 'temp' : 0 }
 
-print(data[sys.argv[2]])
+print(data[velicina])
