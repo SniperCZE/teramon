@@ -2,16 +2,35 @@
 
 import Adafruit_DHT
 import json
+import time
+import daemon
 
 class teramon:
 
     dht_model = 11
+    sleep = 30
+    save_path = "/tmp/teramon.json"
 
     def __init__(self):
         json_data = open("./teramon.json").read()
-        konfigurace = json.loads(json_data)
-        self.dht_model = konfigurace['dht_model']
+        config = json.loads(json_data)
+        self.dht_model = config['dht_model']
+        self.sleep = config['daemon_sleep']
+        self.save_path = config['measurement_save_path']
 
-    def mereni(self, gpio):
+    def measurement(self, gpio):
         humidity, temperature = Adafruit_DHT.read_retry(self.dht_model, gpio)
         return { 'hum': humidity, 'temp': temperature }
+
+    def runTeramonDaemon(self):
+        data = {}
+        while True:
+            data = self.measurement()
+            with open(self.save_path, 'w') as outfile:
+                json.dump(data, outfile)
+            time.sleep(self.sleep)
+
+if __name__ == "__main__":
+    tmon = teramon.teramon()
+    with daemon.DaemonContext():
+        tmon.runTeramonDaemon()

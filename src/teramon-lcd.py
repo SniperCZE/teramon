@@ -9,42 +9,40 @@ import json
 
 class teramonLcd:
 
-    konfigurace = {}
+    config = {}
     lcd = {}
     tmon = {}
 
-    def __init__(self, konfigurace):
-        self.konfigurace = konfigurace
-        self.lcd = RPi_I2C_driver.lcd(konfigurace['lcd_adresa'])
+    def __init__(self, config):
+        self.config = config
+        self.lcd = RPi_I2C_driver.lcd(config['lcd_address'])
         self.tmon = teramon.teramon()
 
-    def vypisLcd(self, pozice, data):
-        """
-        Vypise informace o namerene teplote a vlhkosti na LCD
-        """
+    def showLcd(self, probe, data):
         self.lcd.lcd_clear()
-        hodina = (int)(time.strftime('%H'))
-        minuta = (int)(time.strftime('%M'))
-        if (hodina >= self.konfigurace['den_zacatek']) and (hodina <= self.konfigurace['den_konec']):
+        hour = (int)(time.strftime('%H'))
+        minute = (int)(time.strftime('%M'))
+        if (hour >= self.config['day_begin']) and (hour <= self.config['day_end']):
             self.lcd.backlight(1)
         else:
             self.lcd.backlight(0)
-        self.lcd.lcd_display_string(pozice, 1)
-        self.lcd.lcd_display_string_pos("{0:0.0f}:{1:0.0f}".format(hodina, minuta), 1, 11)
+        self.lcd.lcd_display_string(probe, 1)
+        self.lcd.lcd_display_string_pos("{0:0.0f}:{1:0.0f}".format(hour, minute), 1, 11)
         self.lcd.lcd_display_string('T: {0:0.0f}'.format(data['temp']), 2)
         self.lcd.lcd_display_string_pos(chr(223), 2, 5)
         self.lcd.lcd_display_string_pos('C  RH: {0:0.0f}%'.format(data['hum']), 2, 6)
 
-    def ovladaniLcd(self):
+    def controlLcd(self):
         while True:
-            for cidlo, nastaveni in self.konfigurace['senzory'].iteritems():
-                vypisLcd(cidlo, tmon.mereni(nastaveni['gpio']), self.lcd)
-                time.sleep(self.konfigurace['lcd_cekani'])
+            for probe, settings in self.config['probes'].iteritems():
+                showLcd(probe, tmon.measurement(settings['gpio']), self.lcd)
+                time.sleep(self.config['lcd_waiting'])
 
-json_data = open("./teramon.json").read()
-konfigurace = json.loads(json_data)
+if __name__ == "__main__":
+    json_data = open("./teramon.json").read()
+    config = json.loads(json_data)
 
-tmonLcd = teramonLcd.teramonLcd(konfigurace)
+    tmonLcd = teramonLcd.teramonLcd(config)
 
-with daemon.DaemonContext():
-    tmonLcd.ovladaniLcd()
+    with daemon.DaemonContext():
+        tmonLcd.controlLcd()

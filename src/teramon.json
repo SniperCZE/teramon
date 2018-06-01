@@ -1,53 +1,55 @@
 {
-    "lcd_adresa" : 38,
-    "lcd_cekani" : 30,
-    "senzory" : {
+    "lcd_address" : 38,
+    "lcd_waiting" : 30,
+    "probes" : {
         "SKLO" : { 
             "gpio" : 5,
-            "limity_teploty" : {
-                "den" : {
+            "temp_limits" : {
+                "day" : {
                     "low" : 22,
                     "high" : 25
                 },
-                "noc" : {
+                "night" : {
                     "low" : 18,
                     "high" : 22
                 },
-                "primarni" : false
+                "primary" : false
             }
         },
         "DZUNGLE" : { 
             "gpio" : 13,
-            "limity_teploty" : {
-                "den" : {
+            "temp_limits" : {
+                "day" : {
                     "low" : 22,
                     "high" : 25
                 },
-                "noc" : {
+                "night" : {
                     "low" : 18,
                     "high" : 22
                 },
-                "primarni" : false
+                "primary" : false
             }
         },
         "LAMPA" : { 
             "gpio" : 6,
-            "limity_teploty" : {
-                "den" : {
+            "temp_limits" : {
+                "day" : {
                     "low" : 33,
                     "high" : 35
                 },
-                "noc" : {
+                "night" : {
                     "low" : 18,
                     "high" : 22
                 },
-                "primarni" : true
+                "primary" : true
             }
         }
     },
-    "den_zacatek" : 8,
-    "den_konec" : 22,
-    "gpio_svetlo" : 23,
-    "gpio_teplo" : 24,
-    "dht_model" : 11
+    "day_begin" : 8,
+    "day_end" : 22,
+    "gpio_light" : 23,
+    "gpio_heat" : 24,
+    "dht_model" : 11,
+    "daemon_sleep" : 60,
+    "measurement_save_path" : "/tmp/teramon.json"
 }

@@ -1,79 +1,83 @@
-# Konfigurace Teramonu
+# Teramon configuration
 
-Teramon se konfiguruje přes soubor `teramon.json`. V něm je možno nastavit adresy jednotlivých zařízení, čidla, teploty pro spínání a rozsah hodin považovaných za den.
+Teramon uses `teramon.json` file for storing all configuration values.
 
-## Ukázkový teramon.json
+## Example of teramon.json
 
 ```json
 {
-    "lcd_adresa" : 38,
-    "lcd_cekani" : 30,
-    "senzory" : {
+    "lcd_address" : 38,
+    "lcd_waiting" : 30,
+    "probes" : {
         "SKLO" : { 
             "gpio" : 5,
-            "limity_teploty" : {
-                "den" : {
+            "temp_limits" : {
+                "day" : {
                     "low" : 22,
                     "high" : 25
                 },
-                "noc" : {
+                "night" : {
                     "low" : 18,
                     "high" : 22
                 },
-                "primarni" : false
+                "primary" : false
             }
         },
         "DZUNGLE" : { 
             "gpio" : 13,
-            "limity_teploty" : {
-                "den" : {
+            "temp_limits" : {
+                "day" : {
                     "low" : 22,
                     "high" : 25
                 },
-                "noc" : {
+                "night" : {
                     "low" : 18,
                     "high" : 22
                 },
-                "primarni" : false
+                "primary" : false
             }
         },
         "LAMPA" : { 
             "gpio" : 6,
-            "limity_teploty" : {
-                "den" : {
+            "temp_limits" : {
+                "day" : {
                     "low" : 33,
                     "high" : 35
                 },
-                "noc" : {
+                "night" : {
                     "low" : 18,
                     "high" : 22
                 },
-                "primarni" : true
+                "primary" : true
             }
         }
     },
-    "den_zacatek" : 8,
-    "den_konec" : 22,
-    "gpio_svetlo" : 23,
-    "gpio_teplo" : 24,
-    "dht_model" : 11
+    "day_begin" : 8,
+    "day_end" : 22,
+    "gpio_light" : 23,
+    "gpio_heat" : 24,
+    "dht_model" : 11,
+    "daemon_sleep" : 60,
+    "measurement_save_path" : "/tmp/teramon.json"
 }
 ```
 
-### Popis polí v konfiguraci
+### Field description
 
-* *lcd_adresa* - I2C adresa LCD, zjistitelná přes utilitku `i2cdetect`
-* *lcd_cekani* - doba ve vteřinách, po jakou je zobrazeno na LCD konkrétní čidlo
-* *senzory* - objekt obsahující definici jednotlivých čidel. Obsahuje pojmenované objekty jednotlivých čidel. Jméno čidla se používá pro zobrazení na LCD a v dotazech zabbixu
-  * *gpio* - GPIO port daného čidla
-    * *limity_teploty* - Objekt obsahující hraniční teploty pro spínání čidla
-      * *den* - objekt pro hodnoty během dne
-        * *low* - teplota, při které se má topení zapnout
-        * *high* - teplota, při které se má topení vypnout
-      * *noc* - objekt pro hodnoty během noci. Parametry jsou shodné jako v denním objektu
-      * *primarni* - boolean příznak, zda je čidlo primární. Primární čidla ovlivňují spínání topení nezávysle na ostatních - pokud je teplota na primárním čidle (libovolném) menší nebo rovna low hodnotě pro danou část dne, topíme bez ohledu na zbytek čidel.
-* *den_zacatek* - první hodina denního režimu (začátek dne)
-* *den_konec* - poslední hodina denního režimu (konec dne)
-* *gpio_svetlo* - GPIO port, na kterém se nachází spínání relé pro ovládání světla
-* *gpio_teplo* - GPIO port, na kterém se nachází spínání relé pro ovládání topení
-* *dht_model* - model DHT čidla pro teplotu a vlhkost. Možné varianty jsou `11` a `22`
+* *lcd_address* - I2C address of LCD. Can be checked via `i2cdetect` utility
+* *lcd_waiting* - timeframe in seconds, how long is info from one probe dislayed
+* *probes* - object with definition of existing probes. It contains named objects of each probe. Probe name is used for LCD description and in zabbix checks.
+  * *gpio* - GPIO port where probe is connected
+    * *temp_limits* - Object with temperature limits for probe
+      * *day* - temperature limits for day
+        * *low* - temperature when heat turns on
+        * *high* - temperature when heat turns off
+      * *night* - temperature limits for nights. Same parameters as in day
+      * *primary* - boolean flag probe is primary. Primary probes directly controls heat on/off indepented to non-primary probes. Teramon turns heat on if any of primary probes reports temperature lower or equal of low value for day or night.
+* *day_begin* - first hour of the day
+* *day_end* - last hour of the day
+* *gpio_light* - GPIO port where control of light relay is connected
+* *gpio_heat* - GPIO port where control of heat relay is connected
+* *dht_model* - model of DHT probe for measurement of temperature and humidity. Allowed values are `11` and `22`
+* *daemon_sleep* - interval between measurement of humidity and temperature
+* *measurement_save_path* - path for saving measurement results
