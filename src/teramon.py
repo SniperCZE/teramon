@@ -26,7 +26,7 @@ class teramon:
     def runTeramonDaemon(self):
         data = {}
         while True:
-            for probe, settings in self.config['probes']
+            for probe, settings in self.config['probes']:
                 data[probe] = self.measurement(settings['gpio'])
             with open(self.save_path, 'w') as outfile:
                 json.dump(data, outfile)
