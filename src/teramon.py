@@ -33,6 +33,6 @@ class teramon:
             time.sleep(self.sleep)
 
 if __name__ == "__main__":
-    tmon = teramon.teramon()
+    tmon = teramon()
     with daemon.DaemonContext():
         tmon.runTeramonDaemon()
