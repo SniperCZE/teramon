@@ -3,7 +3,6 @@
 import sys
 import RPi_I2C_driver
 import time
-import teramon
 import daemon
 import json
 
@@ -11,12 +10,10 @@ class teramonLcd:
 
     config = {}
     lcd = {}
-    tmon = {}
 
     def __init__(self, config):
         self.config = config
         self.lcd = RPi_I2C_driver.lcd(config['lcd_address'])
-        self.tmon = teramon.teramon()
 
     def showLcd(self, probe, data):
         self.lcd.lcd_clear()
@@ -34,8 +31,9 @@ class teramonLcd:
 
     def controlLcd(self):
         while True:
+            cached_measurement = open(config['measurement_save_path']).read()
             for probe, settings in self.config['probes'].iteritems():
-                showLcd(probe, tmon.measurement(settings['gpio']), self.lcd)
+                showLcd(probe, cached_measurement[probe], self.lcd)
                 time.sleep(self.config['lcd_waiting'])
 
 if __name__ == "__main__":
