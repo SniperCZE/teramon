@@ -6,6 +6,7 @@ After=network.target
 Type=forking
 PIDFile=/var/run/teramon/teramon.pid
 ExecStart=/usr/bin/python /usr/local/teramon/teramon.py
+WorkingDirectory=/usr/local/teramon
 Restart=on-failure
 
 [Install]
