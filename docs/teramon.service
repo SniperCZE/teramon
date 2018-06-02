@@ -3,7 +3,6 @@ Description=Teramon - Measuring daemon
 After=network.target
 
 [Service]
-Type=forking
 PIDFile=/var/run/teramon/teramon.pid
 ExecStart=/usr/bin/python /usr/local/teramon/teramon.py
 WorkingDirectory=/usr/local/teramon
