@@ -1,23 +1,19 @@
 #!/usr/bin/python
 
 import sys
-import teramon
 import time
 import RPi.GPIO as GPIO
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
-tmon = teramon.teramon()
 
 json_data = open("./teramon.json").read()
 config = json.loads(json_data)
 
+data = open(config['measurement_save_path']).read()
+
 GPIO.setup(config['gpio_heat'], GPIO.OUT)
 GPIO.setup(config['gpio_light'], GPIO.OUT)
-data = {}
-
-for probe, settings in config['probes'].iteritems():
-    data[probe] = tmon.measurement(settings['gpio'])
 
 actualHour = (int)(time.strftime('%H'))
 isDay = (actualHour >= config['day_begin']) and (actualHour <= config['day_end'])
