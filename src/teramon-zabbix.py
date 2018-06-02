@@ -1,7 +1,6 @@
 #!/usr/bin/python
 
 import sys
-import teramon
 import json
 
 json_data = open("./teramon.json").read()
@@ -15,13 +14,13 @@ if len(sys.argv) != 3:
     print("MEASUREMENT: hum, temp")
     quit()
 
-tmon = teramon.teramon()
-
 probe = sys.argv[1]
 measurement = sys.argv[2]
 
-if probe in config['probes'].keys():
-    data = tmon.measurement(config['probes'][probe]['gpio'])
+cached_measurement = open(config['measurement_save_path']).read()
+
+if probe in cached_measurement.keys():
+    data = cached_measurement[probe]
 else:
     data = { 'hum' : 0, 'temp' : 0 }
 

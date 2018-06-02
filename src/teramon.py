@@ -10,13 +10,14 @@ class teramon:
     dht_model = 11
     sleep = 30
     save_path = "/tmp/teramon.json"
+    config = {}
 
     def __init__(self):
         json_data = open("./teramon.json").read()
-        config = json.loads(json_data)
-        self.dht_model = config['dht_model']
-        self.sleep = config['daemon_sleep']
-        self.save_path = config['measurement_save_path']
+        self.config = json.loads(json_data)
+        self.dht_model = self.config['dht_model']
+        self.sleep = self.config['daemon_sleep']
+        self.save_path = self.config['measurement_save_path']
 
     def measurement(self, gpio):
         humidity, temperature = Adafruit_DHT.read_retry(self.dht_model, gpio)
@@ -25,7 +26,8 @@ class teramon:
     def runTeramonDaemon(self):
         data = {}
         while True:
-            data = self.measurement()
+            for probe, settings in self.config['probes']
+                data[probe] = self.measurement(settings['gpio'])
             with open(self.save_path, 'w') as outfile:
                 json.dump(data, outfile)
             time.sleep(self.sleep)
