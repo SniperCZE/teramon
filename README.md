@@ -1,10 +1,10 @@
 # Teramon software for heat and light measurements and controls for terrarias
 
-Software pro hlidani teploty a vlhkosti v terariu. Vytvoreno pro Raspberry PI, jako senzory teploty a vlhkosti pouzity moduly DHT11.
+Automatization of temperature and light control for terrarium. Using Raspberry PI and DHT11 probes for temperature and humidity.
 
-* Ovladaci knihovna DHT11: `git clone https://github.com/adafruit/Adafruit_Python_DHT.git`
-* Navod na zapojeni cidla: [circuitbasic.com](http://www.circuitbasics.com/how-to-set-up-the-dht11-humidity-sensor-on-the-raspberry-pi/)
-* Navod na I2C LCD: [circuitbasic.com](http://www.circuitbasics.com/raspberry-pi-i2c-lcd-set-up-and-programming/)
+* DHT probe control library: `git clone https://github.com/adafruit/Adafruit_Python_DHT.git`
+* How to connect probe: [circuitbasic.com](http://www.circuitbasics.com/how-to-set-up-the-dht11-humidity-sensor-on-the-raspberry-pi/)
+* How to connect I2C LCD: [circuitbasic.com](http://www.circuitbasics.com/raspberry-pi-i2c-lcd-set-up-and-programming/)
 
 ## Required python modules
 

@@ -4,7 +4,7 @@
 * Measurement probe DHT11 - [dx.com, cca. 86Kč](http://www.dx.com/p/hengjiaan-dht11-digital-temperature-humidity-sensor-modules-2-pcs-463981#.WwXCABwzU5k)
 * LCD display with I2C support - [dx.com, cca. 94Kč](http://www.dx.com/p/i2c-iic-2-6-lcd-1602-yellow-green-display-module-for-arduino-raspberry-pi-avr-arm-379324)
 
-## Použité piny raspberry
+## Map of used Raspberry PI GPIO pins
 
 ```
                    01 -+ +- 02 +5V probes + relays
