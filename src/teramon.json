@@ -4,6 +4,7 @@
     "probes" : {
         "SKLO" : { 
             "gpio" : 5,
+            "primary" : false,
             "temp_limits" : {
                 "day" : {
                     "low" : 22,
@@ -12,12 +13,12 @@
                 "night" : {
                     "low" : 18,
                     "high" : 22
-                },
-                "primary" : false
+                }
             }
         },
         "DZUNGLE" : { 
             "gpio" : 13,
+            "primary" : false,
             "temp_limits" : {
                 "day" : {
                     "low" : 22,
@@ -26,12 +27,12 @@
                 "night" : {
                     "low" : 18,
                     "high" : 22
-                },
-                "primary" : false
+                }
             }
         },
         "LAMPA" : { 
             "gpio" : 6,
+            "primary" : true,
             "temp_limits" : {
                 "day" : {
                     "low" : 33,
@@ -40,8 +41,7 @@
                 "night" : {
                     "low" : 18,
                     "high" : 22
-                },
-                "primary" : true
+                }
             }
         }
     },

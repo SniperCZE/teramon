@@ -11,6 +11,7 @@ Teramon uses `teramon.json` file for storing all configuration values.
     "probes" : {
         "SKLO" : { 
             "gpio" : 5,
+            "primary" : false,
             "temp_limits" : {
                 "day" : {
                     "low" : 22,
@@ -19,12 +20,12 @@ Teramon uses `teramon.json` file for storing all configuration values.
                 "night" : {
                     "low" : 18,
                     "high" : 22
-                },
-                "primary" : false
+                }
             }
         },
         "DZUNGLE" : { 
             "gpio" : 13,
+            "primary" : false,
             "temp_limits" : {
                 "day" : {
                     "low" : 22,
@@ -33,12 +34,12 @@ Teramon uses `teramon.json` file for storing all configuration values.
                 "night" : {
                     "low" : 18,
                     "high" : 22
-                },
-                "primary" : false
+                }
             }
         },
         "LAMPA" : { 
             "gpio" : 6,
+            "primary" : true,
             "temp_limits" : {
                 "day" : {
                     "low" : 33,
@@ -47,8 +48,7 @@ Teramon uses `teramon.json` file for storing all configuration values.
                 "night" : {
                     "low" : 18,
                     "high" : 22
-                },
-                "primary" : true
+                }
             }
         }
     },
@@ -68,12 +68,12 @@ Teramon uses `teramon.json` file for storing all configuration values.
 * *lcd_waiting* - timeframe in seconds, how long is info from one probe dislayed
 * *probes* - object with definition of existing probes. It contains named objects of each probe. Probe name is used for LCD description and in zabbix checks.
   * *gpio* - GPIO port where probe is connected
+  * *primary* - boolean flag probe is primary. Primary probes directly controls heat on/off indepented to non-primary probes. Teramon turns heat on if any of primary probes reports temperature lower or equal of low value for day or night.
     * *temp_limits* - Object with temperature limits for probe
       * *day* - temperature limits for day
         * *low* - temperature when heat turns on
         * *high* - temperature when heat turns off
       * *night* - temperature limits for nights. Same parameters as in day
-      * *primary* - boolean flag probe is primary. Primary probes directly controls heat on/off indepented to non-primary probes. Teramon turns heat on if any of primary probes reports temperature lower or equal of low value for day or night.
 * *day_begin* - first hour of the day
 * *day_end* - last hour of the day
 * *gpio_light* - GPIO port where control of light relay is connected
