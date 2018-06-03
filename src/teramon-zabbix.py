@@ -20,9 +20,10 @@ probe = sys.argv[1]
 measurement = sys.argv[2]
 
 cached_measurement = open(config['measurement_save_path']).read()
+cached_measurement_data = json.loads(cached_measurement)
 
-if probe in cached_measurement.keys():
-    data = cached_measurement[probe]
+if probe in cached_measurement_data.keys():
+    data = cached_measurement_data[probe]
 else:
     data = { 'hum' : 0, 'temp' : 0 }
 
