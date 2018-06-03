@@ -3,7 +3,6 @@
 import sys
 import RPi_I2C_driver
 import time
-import daemon
 import json
 import os
 
@@ -43,6 +42,4 @@ class teramonLcd:
 
 if __name__ == "__main__":
     tmonLcd = teramonLcd()
-
-    with daemon.DaemonContext():
-        tmonLcd.controlLcd()
+    tmonLcd.controlLcd()
