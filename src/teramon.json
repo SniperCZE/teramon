@@ -1,5 +1,5 @@
 {
-    "lcd_address" : 38,
+    "lcd_address" : "0x38",
     "lcd_waiting" : 30,
     "probes" : {
         "SKLO" : { 
