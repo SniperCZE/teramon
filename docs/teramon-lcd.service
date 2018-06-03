@@ -3,10 +3,9 @@ Description=LCD control for Teramon
 After=network.target
 
 [Service]
-PrivateTmp=true
-Type=forking
 PIDFile=/var/run/teramon/teramon-lcd.pid
 ExecStart=/usr/bin/python /usr/local/teramon/teramon-lcd.py
+WorkingDirectory=/usr/local/teramon
 Restart=on-failure
 
 [Install]
