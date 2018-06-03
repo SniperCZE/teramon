@@ -15,7 +15,7 @@ class teramonLcd:
     def __init__(self):
         teramon_dir = os.path.dirname(os.path.realpath(__file__))
         json_data = open(teramon_dir + "/teramon.json").read()
-        self.config = json_data
+        self.config = json.loads(json_data)
         self.lcd = RPi_I2C_driver.lcd(config['lcd_address'])
 
     def showLcd(self, probe, data):
@@ -35,8 +35,9 @@ class teramonLcd:
     def controlLcd(self):
         while True:
             cached_measurement = open(config['measurement_save_path']).read()
-            for probe, settings in self.config['probes'].iteritems():
-                showLcd(probe, cached_measurement[probe], self.lcd)
+            cached_measurement_data = json.loads(cached_measurement)
+            for probe in self.config['probes'].keys():
+                showLcd(str(probe), cached_measurement_data[probe], self.lcd)
                 time.sleep(self.config['lcd_waiting'])
 
 if __name__ == "__main__":
