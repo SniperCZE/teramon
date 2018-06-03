@@ -13,7 +13,8 @@ teramon_dir = os.path.dirname(os.path.realpath(__file__))
 json_data = open(teramon_dir + "/teramon.json").read()
 config = json.loads(json_data)
 
-data = open(config['measurement_save_path']).read()
+data_raw = open(config['measurement_save_path']).read()
+data = json.loads(data_raw)
 
 GPIO.setup(config['gpio_heat'], GPIO.OUT)
 GPIO.setup(config['gpio_light'], GPIO.OUT)
