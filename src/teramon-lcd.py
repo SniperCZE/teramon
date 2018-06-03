@@ -5,14 +5,17 @@ import RPi_I2C_driver
 import time
 import daemon
 import json
+import os
 
 class teramonLcd:
 
     config = {}
     lcd = {}
 
-    def __init__(self, config):
-        self.config = config
+    def __init__(self):
+        teramon_dir = os.path.dirname(os.path.realpath(__file__))
+        json_data = open(teramon_dir + "/teramon.json").read()
+        self.config = json_data
         self.lcd = RPi_I2C_driver.lcd(config['lcd_address'])
 
     def showLcd(self, probe, data):
@@ -37,10 +40,7 @@ class teramonLcd:
                 time.sleep(self.config['lcd_waiting'])
 
 if __name__ == "__main__":
-    json_data = open("./teramon.json").read()
-    config = json.loads(json_data)
-
-    tmonLcd = teramonLcd.teramonLcd(config)
+    tmonLcd = teramonLcd.teramonLcd()
 
     with daemon.DaemonContext():
         tmonLcd.controlLcd()

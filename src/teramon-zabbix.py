@@ -2,8 +2,10 @@
 
 import sys
 import json
+import os
 
-json_data = open("./teramon.json").read()
+teramon_dir = os.path.dirname(os.path.realpath(__file__))
+json_data = open(teramon_dir + "/teramon.json").read()
 config = json.loads(json_data)
 
 probe_list = ', '.join(config['probes'].keys())

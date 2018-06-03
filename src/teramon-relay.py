@@ -3,11 +3,13 @@
 import sys
 import time
 import RPi.GPIO as GPIO
+import os
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
 
-json_data = open("./teramon.json").read()
+teramon_dir = os.path.dirname(os.path.realpath(__file__))
+json_data = open(teramon_dir + "/teramon.json").read()
 config = json.loads(json_data)
 
 data = open(config['measurement_save_path']).read()

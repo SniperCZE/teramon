@@ -4,6 +4,7 @@ import Adafruit_DHT
 import json
 import time
 import daemon
+import os
 
 class teramon:
 
@@ -13,7 +14,8 @@ class teramon:
     config = {}
 
     def __init__(self):
-        json_data = open("./teramon.json").read()
+        teramon_dir = os.path.dirname(os.path.realpath(__file__))
+        json_data = open(teramon_dir + "/teramon.json").read()
         self.config = json.loads(json_data)
         self.dht_model = self.config['dht_model']
         self.sleep = self.config['daemon_sleep']
