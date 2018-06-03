@@ -24,30 +24,30 @@ heatOn = False
 heatChange = True
 primaryProbeDefined = False
 
-for probe, settings in config['probes'].iteritems():
-    if settings['primary'] == True:
+for probe in config['probes'].keys():
+    if config['probes'][probe]['primary'] == True:
         primaryProbeDefined = True
 
 if isDay:
 
     if primaryProbeDefined:
-        for probe, settings in config['probes'].iteritems():
-            if settings['primary'] == True:
-                if data[probe]['temp'] <= settings['temp_limits']['day']['low']:
+        for probe in config['probes'].keys():
+            if config['probes'][probe]['primary'] == True:
+                if data[probe]['temp'] <= config['probes'][probe]['temp_limits']['day']['low']:
                     heatOn = True
                     heatChange = True
     else :
-        for probe, settings in config['probes'].iteritems():
-            if data[probe]['temp'] <= settings['temp_limits']['day']['low']:
+        for probe in config['probes'].keys():
+            if data[probe]['temp'] <= config['probes'][probe]['temp_limits']['day']['low']:
                 heatOn = True
 
-        for probe, settings in config['probes'].iteritems():
-            if data[probe]['temp'] >= settings['temp_limits']['day']['high']:
+        for probe in config['probes'].keys():
+            if data[probe]['temp'] >= config['probes'][probe]['temp_limits']['day']['high']:
                 heatOn = False
 
         stillTrue = True
-        for probe, settings in config['probes'].iteritems():
-            if (data[probe]['temp'] <= settings['temp_limits']['day']['high']) and (data[probe]['temp'] >= settings['temp_limits']['day']['low']) and stillTrue:
+        for probe in config['probes'].keys():
+            if (data[probe]['temp'] <= config['probes'][probe]['temp_limits']['day']['high']) and (data[probe]['temp'] >= config['probes'][probe]['temp_limits']['day']['low']) and stillTrue:
                 stillTrue = True
             else:
                 stillFalse = False
@@ -57,23 +57,23 @@ if isDay:
 else:
 
     if primaryProbeDefined:
-        for probe, settings in config['probes'].iteritems():
-            if settings['primary'] == True:
-                if data[probe]['temp'] <= settings['temp_limits']['night']['low']:
+        for probe in config['probes'].keys():
+            if config['probes'][probe]['primary'] == True:
+                if data[probe]['temp'] <= config['probes'][probe]['temp_limits']['night']['low']:
                     heatOn = True
                     heatChange = True
     else :
-        for probe, settings in config['probes'].iteritems():
-            if data[probe]['temp'] <= settings['temp_limits']['night']['low']:
+        for probe in config['probes'].keys():
+            if data[probe]['temp'] <= config['probes'][probe]['temp_limits']['night']['low']:
                 heatOn = True
 
-        for probe, settings in config['probes'].iteritems():
-            if data[probe]['temp'] >= settins['temp_limits']['night']['high']:
+        for probe in config['probes'].keys():
+            if data[probe]['temp'] >= config['probes'][probe]['temp_limits']['night']['high']:
                 heatOn = False
 
         stillTrue = True
-        for probe, settings in config['probes'].iteritems():
-            if (data[probe]['temp'] <= settings['temp_limits']['noght']['high']) and (data[probe]['temp'] >= settings['temp_limits']['night']['low']) and zatimTrue:
+        for probe in config['probes'].keys():
+            if (data[probe]['temp'] <= config['probes'][probe]['temp_limits']['noght']['high']) and (data[probe]['temp'] >= config['probes'][probe]['temp_limits']['night']['low']) and zatimTrue:
                 stillTrue = True
             else:
                 stillTrue = False
