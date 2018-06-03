@@ -27,7 +27,7 @@ class teramonLcd:
         else:
             self.lcd.backlight(0)
         self.lcd.lcd_display_string(probe, 1)
-        self.lcd.lcd_display_string_pos("{0:0.0f}:{1:0.0f}".format(hour, minute), 1, 11)
+        self.lcd.lcd_display_string_pos("{0:02.0f}:{1:02.0f}".format(hour, minute), 1, 11)
         self.lcd.lcd_display_string('T: {0:0.0f}'.format(data['temp']), 2)
         self.lcd.lcd_display_string_pos(chr(223), 2, 5)
         self.lcd.lcd_display_string_pos('C  RH: {0:0.0f}%'.format(data['hum']), 2, 6)
