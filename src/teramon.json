@@ -46,7 +46,7 @@
         }
     },
     "day_begin" : 8,
-    "day_end" : 22,
+    "day_end" : 21,
     "gpio_light" : 23,
     "gpio_heat" : 24,
     "dht_model" : 11,
